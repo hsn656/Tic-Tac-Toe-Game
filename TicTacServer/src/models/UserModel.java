@@ -20,10 +20,10 @@ import java.util.logging.Logger;
  * @author Hassan
  */
 public class UserModel {
-     static final String DB_URL = "jdbc:mysql://localhost:3306/user_base";
-   static final String DB_DRV = "com.mysql.cj.jdbc.Driver";
-   static final String DB_USER = "abdallah";
-   static final String DB_PASSWD = "root";
+    static final String DB_URL = "jdbc:mysql://localhost:3306/user_base";
+    static final String DB_DRV = "com.mysql.cj.jdbc.Driver";
+    static final String DB_USER = "abdallah";
+    static final String DB_PASSWD = "root";
 
   
     public static Connection connect() throws SQLException {
@@ -145,7 +145,28 @@ public class UserModel {
        }
        return null;
   }
-   
+      public static int playerId(String username) {
+       try {
+           Connection connection = connect();
+           Statement statement = (Statement) connection.createStatement();
+           ResultSet resultSet=statement.executeQuery("SELECT * FROM users");
+           
+           
+           while(resultSet.next()){
+               
+               if(resultSet.getString("User_Name").equals(username)){
+                   int id=resultSet.getInt("User_ID");
+                   resultSet.close();
+                   connection.close();
+                   return id;
+               }
+           }
+          
+       } catch (SQLException ex) {
+           Logger.getLogger(UserModel.class.getName()).log(Level.SEVERE, null, ex);
+       }
+        return -1;
+   }
     
 }
 

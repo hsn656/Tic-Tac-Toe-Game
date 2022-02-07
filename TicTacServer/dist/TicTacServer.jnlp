@@ -8,12 +8,9 @@
   </information>
   <resources>
     <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
-    <jar href="TicTacServer.jar" size="15682" download="eager" />
+    <jar href="TicTacServer.jar" size="20657" download="eager" />
     <jar href="lib\mysql-connector.jar" size="2476480" download="eager" />
   </resources>
-  <applet-desc  width="800" height="600" main-class="com.javafx.main.NoJavaFXFallback"  name="TicTacServer" >
-    <param name="requiredFXVersion" value="8.0+"/>
-  </applet-desc>
   <jfx:javafx-desc  width="800" height="600" main-class="tictacserver.TicTacServer"  name="TicTacServer" />
   <update check="always"/>
 </jnlp>

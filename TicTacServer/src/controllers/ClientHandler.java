@@ -30,6 +30,7 @@ public class ClientHandler extends Thread {
     static Vector<User> playersList = new Vector<>();
     static Vector<String> onlinePlayersUNames = new Vector<>();
     static Vector<ClientHandler> onlinePlayers = new Vector<>();
+    static Vector<GameMatch> gameMatches = new Vector<>();
   //  GameMatch gameMatch = null;
     int gameIndex;
   //static Vector<GameMatch> gameMatches = new Vector<>();
@@ -58,24 +59,21 @@ public class ClientHandler extends Thread {
                 System.out.println("waiting for new message");
             try {
                 mssg = dis.readLine();
-            } catch (IOException ex) {
-                Logger.getLogger(ClientHandler.class.getName()).log(Level.SEVERE, null, ex);
-            }
 
                 if (mssg.equals("login")) {
                     System.out.println("trying to login");
                     signIn();
-                }
-                else if (mssg.equals("signup")) {
-
+                } else if (mssg.equals("signup")) {
                     System.out.println("request signup");
                     signUP();
-
+                } else if (mssg.equals("invite")) {
+                    String invitedPlayerUserName = dis.readLine();
+                    invitePlayer(invitedPlayerUserName);
                 }
-//                   } else if (mssg.equals("invite")) {
-//                    String invitedPlayerUserName = dis.readLine();
-//                    invitePlayer(invitedPlayerUserName);
-//                    
+            }catch (IOException ex) {
+                Logger.getLogger(ClientHandler.class.getName()).log(Level.SEVERE, null, ex);
+            }
+//           
 //                } else if (mssg.equals("logout")) {
 //
 //                    System.out.println("request logout");
@@ -223,6 +221,39 @@ private void signIn() {
         }
 
     }
-  
-    
+
+    public void invitePlayer(String userName) {
+        ClientHandler invitedClient = onlinePlayers.get(onlinePlayersUNames.indexOf(userName));
+        invitedClient.ps.println("invitation");
+        invitedClient.ps.println(this.user.userName);
+        invitedClient.ps.println(this.user.score);
+
+        try {
+            this.sleep(500);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(ClientHandler.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        invitationStatus.add(new String("waiting"));
+        this.invitationIndex = invitationStatus.size() - 1;
+        invitedClient.invitationIndex = invitationStatus.size() - 1;
+        while (invitationStatus.get(invitationIndex).equals("waiting"));
+        String invitatonReply = invitationStatus.get(invitationIndex);
+//        String invitatonReply = "accept";
+
+        if (invitatonReply.equals("accept")) {
+            //recive accept
+            this.ps.println("invitationAccepted");
+            try {
+                this.sleep(500);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(ClientHandler.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            gameMatches.add(new GameMatch(this.user.userName, userName, this.s, invitedClient.s));
+            this.gameIndex = gameMatches.size() - 1;
+            invitedClient.gameIndex = gameMatches.size() - 1;
+        } else {
+            this.ps.println("invitationRefused");
+        }
+    }    
 }
