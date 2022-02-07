@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="TicTacServer/src"/>
+	<classpathentry kind="src" path="TicTacToeClient/src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/javafx">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="TicTacServer/dist/lib/mysql-connector.jar"/>
+	<classpathentry kind="lib" path="TicTacServer/dist/TicTacServer.jar"/>
+	<classpathentry kind="lib" path="TicTacToeClient/dist/run1149090736/TicTacToeClient.jar"/>
+	<classpathentry kind="lib" path="TicTacToeClient/dist/run905331359/TicTacToeClient.jar"/>
+	<classpathentry kind="lib" path="TicTacToeClient/dist/TicTacToeClient.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
