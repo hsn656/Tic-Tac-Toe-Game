@@ -210,15 +210,12 @@ public class LoginController implements Initializable {
         this.socket = socket;
         this.fromServer = fromServer;
         this.playerList = playerList;
-        
         System.out.println(playerList.get(0).userName);
         System.out.println(playerList.get(1).userName);    
     }
     
      class ClientListner extends Thread {
-
         boolean isServerOn;
-
         public ClientListner() {
             System.out.println("Thread created");
             isServerOn = true;
@@ -248,9 +245,6 @@ public class LoginController implements Initializable {
                     Logger.getLogger(TicTacToeClient.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-        
         }
-    }
-
-    
+    }  
 }
