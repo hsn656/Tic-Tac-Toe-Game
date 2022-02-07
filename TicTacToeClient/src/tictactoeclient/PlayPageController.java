@@ -42,15 +42,12 @@ public class PlayPageController implements Initializable {
     User currentUser;
     static String user;
     static Integer score;
-    
-    
-    
+    ObservableList<User> data = FXCollections.observableArrayList();
+
     @FXML
     private Label displayUerName;
     @FXML
     private Label displayUserScore;
-    @FXML
-    private TableView<User> dataTable;
     @FXML
     private TableColumn<User, String> nameColumn;
     @FXML
@@ -61,6 +58,8 @@ public class PlayPageController implements Initializable {
     private TableColumn<User, String> stateColumn;
     @FXML
     private Button inviteButton;
+    @FXML
+    private TableView<User> playersTable;
 
     /**
      * Initializes the controller class.
@@ -68,6 +67,7 @@ public class PlayPageController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        
         nameColumn.setCellValueFactory(new PropertyValueFactory<User, String>("userName"));
         emailColumn.setCellValueFactory(new PropertyValueFactory<User, String>("email"));
         scoreColumn.setCellValueFactory(new PropertyValueFactory<User, Integer>("score"));
@@ -98,14 +98,13 @@ public class PlayPageController implements Initializable {
     public void SetCurrentUserInfo(String name, Integer score) {
         displayUerName.setText(user);
         displayUserScore.setText(score.toString());
-        dataTable.setEditable(true);
-        dataTable.getItems().clear();
-        ObservableList<User> data = FXCollections.observableArrayList();
-//        (ObservableList<User>) dataTable.getItems();
+        playersTable.setEditable(true);
+        //playersTable.getItems().clear();
+//      (ObservableList<User>) dataTable.getItems();
         for (int i = 0; i < playerList.size(); i++) {
             System.out.println(playerList.get(i).userName + " " + playerList.get(i).state);
             data.add(new User(playerList.get(i).userName, playerList.get(i).email, playerList.get(i).score, playerList.get(i).state));
         }   
-        dataTable.setItems(data);
+        playersTable.setItems(data);
     }
 }

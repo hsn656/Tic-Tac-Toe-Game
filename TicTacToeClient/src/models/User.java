@@ -22,6 +22,7 @@ public class User {
     
     }
     
+    
      public User(int userId,String userName,String email,String password,int score ,String pic,String state){
         this.userID=userId;
         this.userName=userName;
@@ -46,4 +47,18 @@ public class User {
         this.score = score;
         this.state = state;
     }
+
+    public String getUserName(){
+        return userName;
+    }
+    public String getEmail(){
+        return email;
+    }
+    public String getState(){
+        return state;
+    }
+    public int getScore(){
+        return score;
+    }
+
 }
