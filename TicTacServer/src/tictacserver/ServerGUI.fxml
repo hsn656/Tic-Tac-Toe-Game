@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="625.0" prefWidth="792.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tictacserver.ServerGUIController">
+   <children>
+      <TableView layoutX="129.0" layoutY="88.0" prefHeight="453.0" prefWidth="547.0">
+        <columns>
+          <TableColumn prefWidth="75.0" text="id" />
+          <TableColumn prefWidth="109.0" text="name" />
+            <TableColumn prefWidth="176.0" text="email" />
+            <TableColumn minWidth="0.0" prefWidth="54.0" text="score" />
+            <TableColumn prefWidth="127.0" text="status" />
+        </columns>
+      </TableView>
+      <Label layoutX="296.0" layoutY="11.0" prefHeight="77.0" prefWidth="136.0" text="Users" textAlignment="RIGHT" textFill="#c61a1a">
+         <font>
+            <Font size="53.0" />
+         </font>
+      </Label>
+      <ToggleButton layoutX="359.0" layoutY="567.0" mnemonicParsing="false" text="On / Off" />
+   </children>
+</AnchorPane>
