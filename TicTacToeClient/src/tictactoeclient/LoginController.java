@@ -45,9 +45,8 @@ public class LoginController implements Initializable {
     static Socket socket;
     static BufferedReader fromServer;
     static PrintWriter toServer;
-    
-    static Vector<User> playerList=new Vector<>();
-    static Stage primaryStage;
+//    static Vector<User> playerList=new Vector<>();
+//    static Stage primaryStage;
     String mssg;
     int flag = 0;
     static Vector<User> playersList = new Vector<>();
@@ -115,16 +114,17 @@ public class LoginController implements Initializable {
                         System.out.println("waiting server authentication");
                         mssg = fromServer.readLine();
                         if (mssg.equals("loginDone")) {
-                            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("PlayPage.fxml")); 
+                            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("PlayPage.fxml"));
+                            handleLoginOpeartionWithServer();
                             Parent root = fxmlLoader.load();
                             playPageController = (PlayPageController) fxmlLoader.getController();
-                            primaryStage= new Stage();
+//                          primaryStage= new Stage();
                             TicTacToeClient.stage.setScene(new Scene(root, 720, 700));
-                            handleLoginOpeartionWithServer();
                             System.out.println("login success");
                             playPageController.SetCurrentUserInfo(currentUser.userName, currentUser.score);
                             listner = new ClientListner();
                             listner.start();
+                            TicTacToeClient.stage.setTitle("Home page");
                             TicTacToeClient.stage.show();
                         } else if (mssg.equals("loginFailed")) {
                             //signActiontarget.setText("login Failed Please try again");
@@ -163,7 +163,8 @@ public class LoginController implements Initializable {
             String email = fromServer.readLine();
             String state = fromServer.readLine();
             int score = Integer.valueOf(fromServer.readLine());
-            User user = new User(userID, userName, email, mssg, score, email, state);
+            // the second E-mail actually handles the picture (not yet implemented)
+            User user = new User(userID, userName, email, "***", score, email, state);
              return user;
         } catch (IOException ex) {
             Logger.getLogger(TicTacToeClient.class.getName()).log(Level.SEVERE, null, ex);
@@ -172,11 +173,11 @@ public class LoginController implements Initializable {
     }
     
     private void SendDataToHomePage(User newUser) {
-        playPageController.recieveData(newUser);
+        PlayPageController.recieveData(newUser);
     }
     
     private void SendAllInfoToGamePage(Socket socket, PrintWriter toServer, BufferedReader fromServer, Vector<User> playerList) {
-        playPageController.recieveSocket(socket, toServer, fromServer, playerList);
+        PlayPageController.recieveSocket(socket, toServer, fromServer, playerList);
     }
 
     @FXML
@@ -203,15 +204,6 @@ public class LoginController implements Initializable {
                     //signActiontarget.setText("Please Check Your Connection");
                     //Logger.getLogger(TicTacToeClient.class.getName()).log(Level.SEVERE, null, ex);
                 }
-    }
-    
-    public void recieveSocket(Socket socket, PrintWriter toServer, BufferedReader fromServer, Vector<User> playerList) {
-        this.toServer = toServer;
-        this.socket = socket;
-        this.fromServer = fromServer;
-        this.playerList = playerList;
-        System.out.println(playerList.get(0).userName);
-        System.out.println(playerList.get(1).userName);    
     }
     
      class ClientListner extends Thread {

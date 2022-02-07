@@ -8,7 +8,7 @@
   </information>
   <resources>
     <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
-    <jar href="TicTacToeClient.jar" size="43420" download="eager" />
+    <jar href="TicTacToeClient.jar" size="48011" download="eager" />
   </resources>
   <jfx:javafx-desc  width="800" height="600" main-class="tictactoeclient.TicTacToeClient"  name="TicTacToeClient" />
   <update check="always"/>

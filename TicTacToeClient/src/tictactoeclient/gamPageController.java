@@ -107,46 +107,46 @@ public class gamPageController implements Initializable{
 	
 	public void checkIfWin() {
 		
-		for (int a = 0; a < 8; a++) {
-            String line = switch (a) {
-                case 0 -> btn1.getText() + btn2.getText() + btn3.getText();
-                case 1 -> btn4.getText() + btn5.getText() + btn6.getText();
-                case 2 -> btn7.getText() + btn8.getText() + btn9.getText();
-                case 3 -> btn1.getText() + btn5.getText() + btn9.getText();
-                case 4 -> btn3.getText() + btn5.getText() + btn7.getText();
-                case 5 -> btn1.getText() + btn4.getText() + btn7.getText();
-                case 6 -> btn2.getText() + btn5.getText() + btn8.getText();
-                case 7 -> btn3.getText() + btn6.getText() + btn9.getText();
-                default -> null;
-            };
-
-            //X winner
-            if (line.equals("XXX")) {
-                System.out.println("x won");
-                playerOneScore++;
-                playerOneScoreText.setText(String.valueOf(playerOneScore));
-                
-                buttons = new ArrayList<>(Arrays.asList(btn1,btn2,btn3,btn4,btn5,btn6,btn7,btn8,btn9));
-        		buttons.forEach(button ->{
-        			setButton(button);
-        			button.setDisable(true);
-        		});
-                
-            }
-
-            //O winner
-            else if (line.equals("OOO")) {
-            	System.out.println("o won");
-            	playerTwoScore++;
-                playerTwoScoreText.setText(String.valueOf(playerTwoScore));
-                
-                buttons = new ArrayList<>(Arrays.asList(btn1,btn2,btn3,btn4,btn5,btn6,btn7,btn8,btn9));
-        		buttons.forEach(button ->{
-        			setButton(button);
-        			button.setDisable(true);
-        		});
-            }
-        }
+//		for (int a = 0; a < 8; a++) {
+//            String line = switch (a) {
+//                case 0 -> btn1.getText() + btn2.getText() + btn3.getText();
+//                case 1 -> btn4.getText() + btn5.getText() + btn6.getText();
+//                case 2 -> btn7.getText() + btn8.getText() + btn9.getText();
+//                case 3 -> btn1.getText() + btn5.getText() + btn9.getText();
+//                case 4 -> btn3.getText() + btn5.getText() + btn7.getText();
+//                case 5 -> btn1.getText() + btn4.getText() + btn7.getText();
+//                case 6 -> btn2.getText() + btn5.getText() + btn8.getText();
+//                case 7 -> btn3.getText() + btn6.getText() + btn9.getText();
+//                default -> null;
+//            };
+//
+//            //X winner
+//            if (line.equals("XXX")) {
+//                System.out.println("x won");
+//                playerOneScore++;
+//                playerOneScoreText.setText(String.valueOf(playerOneScore));
+//                
+//                buttons = new ArrayList<>(Arrays.asList(btn1,btn2,btn3,btn4,btn5,btn6,btn7,btn8,btn9));
+//        		buttons.forEach(button ->{
+//        			setButton(button);
+//        			button.setDisable(true);
+//        		});
+//                
+//            }
+//
+//            //O winner
+//            else if (line.equals("OOO")) {
+//            	System.out.println("o won");
+//            	playerTwoScore++;
+//                playerTwoScoreText.setText(String.valueOf(playerTwoScore));
+//                
+//                buttons = new ArrayList<>(Arrays.asList(btn1,btn2,btn3,btn4,btn5,btn6,btn7,btn8,btn9));
+//        		buttons.forEach(button ->{
+//        			setButton(button);
+//        			button.setDisable(true);
+//        		});
+//            }
+//        }
 	}
 	
 }

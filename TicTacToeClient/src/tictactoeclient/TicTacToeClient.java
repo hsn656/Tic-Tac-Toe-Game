@@ -16,7 +16,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import models.User;
-import static tictactoeclient.LoginController.playerList;
 
 /**
  *
