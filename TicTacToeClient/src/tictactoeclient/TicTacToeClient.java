@@ -14,6 +14,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import models.User;
 
@@ -24,7 +25,7 @@ import models.User;
 public class TicTacToeClient extends Application {
     
     public static Stage stage=new Stage();
-    
+    public static final Text signActiontarget = new Text();
     @Override
     public void start(Stage Pstage) throws Exception {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("login.fxml")); 
