@@ -27,6 +27,8 @@
                   <Font size="31.0" />
                </font>
             </Label>
+            <Button layoutX="662.0" layoutY="368.0" mnemonicParsing="false" onAction="#connect_handelr" style="-fx-background-color: #020034;" text="Connect" textFill="WHITE" />
+            <TextField fx:id="connect_field" layoutX="598.0" layoutY="316.0" prefHeight="31.0" prefWidth="187.0" promptText="connect_field" />
          </children>
       </AnchorPane>
       <AnchorPane fx:id="pane_signUp" layoutY="251.0" prefHeight="406.0" prefWidth="351.0" style="-fx-background-color: #dc2f60;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
@@ -40,7 +42,6 @@
             <PasswordField fx:id="Password_signUp" layoutX="272.0" layoutY="186.0" prefHeight="38.0" prefWidth="224.0" promptText="Password" />
             <TextField fx:id="email_SignUp" layoutX="274.0" layoutY="250.0" prefHeight="38.0" prefWidth="224.0" promptText="Email" />
             <Button fx:id="submit" layoutX="301.0" layoutY="319.0" mnemonicParsing="false" onAction="#submitHandler" prefHeight="50.0" prefWidth="170.0" style="-fx-background-color: #020034; -fx-border-color: #f1bc31; -fx-border-width: 3px;" text="Submit" textFill="WHITE" />
-            <Button fx:id="connectBtn" layoutX="661.0" layoutY="319.0" mnemonicParsing="false" onAction="#connect" text="connect" />
          </children>
       </AnchorPane>
       <Button fx:id="btnSignUp" layoutX="89.0" layoutY="112.0" mnemonicParsing="false" onAction="#signUpHndelr" prefHeight="40.0" prefWidth="170.0" style="-fx-background-color: #dc2f60; -fx-border-color: #f1bc31; -fx-border-width: 3px;" text="SignUp" textFill="WHITE">

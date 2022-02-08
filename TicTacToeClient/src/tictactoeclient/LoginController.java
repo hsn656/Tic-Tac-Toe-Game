@@ -5,6 +5,7 @@
  */
 package tictactoeclient;
 
+import java.awt.Color;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -17,6 +18,7 @@ import java.util.ResourceBundle;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Pattern;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -34,6 +36,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import models.User;
+
+
 
 /**
  * FXML Controller class
@@ -84,6 +88,8 @@ public class LoginController implements Initializable {
     private Button btnLoginForm;
     @FXML
     private Button connectBtn;
+    @FXML
+    private TextField connect_field;
     
     // </editor-fold>
 
@@ -97,14 +103,100 @@ public class LoginController implements Initializable {
         // TODO
     }    
 
-    @FXML
-    private void handleLoginButton(ActionEvent event) {
+@FXML 
+    private void connect_handelr(ActionEvent event) {
+//                String IP = "127.0.0.1";
+                flag = 1;
+                try {
+                    socket = new Socket(connect_field.getText(), 20080);
+                    toServer = new PrintWriter(socket.getOutputStream(), true);
+                    fromServer = new BufferedReader(new InputStreamReader(socket.getInputStream(), "UTF-8"));
+                    // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                } catch (IOException ex) {
+                    //signActiontarget.setText("Please Check Your Connection");
+                    //Logger.getLogger(TicTacToeClient.class.getName()).log(Level.SEVERE, null, ex);
+                }
+}
+    @FXML 
+    private void submitHandler(ActionEvent event) {
+
+                String name = userName_SignUp.getText();
+                String Pass = Password_signUp.getText();
+                String Email = email_SignUp.getText();
+                System.out.println(name);
+                System.out.println(Pass);
+                System.out.println(Email);
+                String error = "";
+                String regexName = "\\p{Upper}(\\p{Lower}+\\s?)";
+//                String patternName = "(" + regexName + "){2,3}";
+                System.out.println("The name is: " + name);
+//                System.out.println("Is the above name valid? " + name.matches(patternName));
+//                boolean nameResult = name.matches(patternName);
+                String regexEmail = "^(.+)@(.+)$";
+                Pattern patternEmail = Pattern.compile(regexEmail);
+                System.out.println("Is the above Email valid? " + Email.matches(String.valueOf(patternEmail)));
+                boolean EmailResult = Email.matches(String.valueOf(patternEmail));
+                String regexPass = "((?=.*\\d)(?=.*[@#$%!]).{5,40})";
+                Pattern patternPass = Pattern.compile(regexPass);
+                System.out.println("Is the above Pass valid? " + Pass.matches(String.valueOf(patternPass)));
+                boolean passResult = Pass.matches(String.valueOf(patternPass));
+//
+//                if (name.equals("") || Pass.equals("") || Email.equals("")) {
+//                    error = "Please Fill All Inputs\n";
+//                    TicTacToeClient.signActiontarget.setText(error);
+//                }
+//                if (nameResult == false) {
+//
+//                    error += "Please Enter Valid Name\n";
+//                    TicTacToeClient.signActiontarget.setText(error);
+//                }
+//                if (EmailResult == false) {
+//                    error += "Please Enter Valid Email\n";
+//                    TicTacToeClient.signActiontarget.setText(error);
+//                }
+//                if (passResult == false) {
+//                    error += "Please Enter Valid Password\n";
+//                    TicTacToeClient.signActiontarget.setText(error);
+//                } else {
+                    TicTacToeClient.signActiontarget.setText("");
+                    toServer.println("signup");
+                    toServer.println(name);
+                    toServer.println(Pass);
+                    toServer.println(Email);
+
+                    try {
+                        mssg = fromServer.readLine();
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                    }
+                    Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (mssg.equals("signupDone")) {
+
+                                System.out.println("Sign up Done");
+//                                TicTacToeClient.signActiontarget.setFill(Color.YELLOW);
+                                TicTacToeClient.signActiontarget.setText("Signed up successfully, Please Login");
+
+                            } else if (mssg.equals("signupFailed")) {
+
+                                System.out.println("Sign up Failed Please try again");
+//                                TicTacToeClient.signActiontarget.setFill(Color.YELLOW);
+                                TicTacToeClient.signActiontarget.setText("Sign up Failed Please try again");
+
+                            }
+
+                        }
+                    });
+
+//                }
+
     }
 
     @FXML
-    private void submitHandler(ActionEvent event) {
-          String user = userName_SignUp.getText();
-          String Password = Password_signUp.getText();
+    private void handleLoginButton(ActionEvent event) {
+          String user = userNameL.getText();
+          String Password = passwordL.getText();
                 try {
                     if (flag == 1) {
                         User usr = new User();
@@ -114,7 +206,9 @@ public class LoginController implements Initializable {
                         System.out.println("waiting server authentication");
                         mssg = fromServer.readLine();
                         if (mssg.equals("loginDone")) {
+                            System.out.println("hello from login");
                             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("PlayPage.fxml"));
+                            System.out.println("hello from after login");
                             handleLoginOpeartionWithServer();
                             Parent root = fxmlLoader.load();
                             playPageController = (PlayPageController) fxmlLoader.getController();
@@ -127,6 +221,7 @@ public class LoginController implements Initializable {
                             TicTacToeClient.stage.setTitle("Home page");
                             TicTacToeClient.stage.show();
                         } else if (mssg.equals("loginFailed")) {
+
                             //signActiontarget.setText("login Failed Please try again");
                             System.out.println("login Failed Please try again");
                         }
@@ -182,29 +277,32 @@ public class LoginController implements Initializable {
 
     @FXML
     private void signUpHndelr(ActionEvent event) {
-        
+             pane_signUp.setVisible(true);
+             pane_login.setVisible(false);
+
     }
 
     @FXML
     private void loginFormHndelr(ActionEvent event) {
-        
+          pane_login.setVisible(true);
+            pane_signUp.setVisible(false);
     }
 
-    @FXML
-    private void connect(ActionEvent event) {
-        
-                String IP = "127.0.0.1";
-                flag = 1;
-                try {
-                    socket = new Socket(IP, 20080);
-                    toServer = new PrintWriter(socket.getOutputStream(), true);
-                    fromServer = new BufferedReader(new InputStreamReader(socket.getInputStream(), "UTF-8"));
-                    // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-                } catch (IOException ex) {
-                    //signActiontarget.setText("Please Check Your Connection");
-                    //Logger.getLogger(TicTacToeClient.class.getName()).log(Level.SEVERE, null, ex);
-                }
-    }
+//    @FXML
+//    private void connect(ActionEvent event) {
+//        
+//                String IP = "127.0.0.1";
+//                flag = 1;
+//                try {
+//                    socket = new Socket(IP, 20080);
+//                    toServer = new PrintWriter(socket.getOutputStream(), true);
+//                    fromServer = new BufferedReader(new InputStreamReader(socket.getInputStream(), "UTF-8"));
+//                    // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+//                } catch (IOException ex) {
+//                    //signActiontarget.setText("Please Check Your Connection");
+//                    //Logger.getLogger(TicTacToeClient.class.getName()).log(Level.SEVERE, null, ex);
+//                }
+//    }
     
      class ClientListner extends Thread {
         boolean isServerOn;
