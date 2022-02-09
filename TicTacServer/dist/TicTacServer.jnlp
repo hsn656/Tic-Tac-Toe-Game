@@ -8,8 +8,8 @@
   </information>
   <resources>
     <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
-    <jar href="TicTacServer.jar" size="20664" download="eager" />
-    <jar href="lib\mysql-connector-java-8.0.28.jar" size="2476480" download="eager" />
+    <jar href="TicTacServer.jar" size="20657" download="eager" />
+    <jar href="lib\mysql-connector.jar" size="2476480" download="eager" />
   </resources>
   <jfx:javafx-desc  width="800" height="600" main-class="tictacserver.TicTacServer"  name="TicTacServer" />
   <update check="always"/>
